@@ -20,5 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.landingPage.as_view(), name="landingPage"),
      path('about',views.about.as_view(),name="about"),
+       path('avi',views.avi.as_view(),name="avi"),
 ]
 

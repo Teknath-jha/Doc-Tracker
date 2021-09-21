@@ -26,3 +26,7 @@ class landingPage(View):
 class about(View):
     def get(self, request, template_name = 'about.html'):
         return render(request, template_name)
+
+class avi(View):
+    def get(self, request, template_name = 'avi.html'):
+        return render(request, template_name)
