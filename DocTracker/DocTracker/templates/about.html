@@ -1,0 +1,31 @@
+{% extends "base.html"%}
+{%load static%}
+{% block title %}About{% endblock %}
+{% block content %}
+
+<link href="{%static 'about/css/style.css' %}" rel="stylesheet">
+<link href="{%static 'about/css/style.css' %}" rel="stylesheet">
+<!--<section id="hero" >
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
+          <h1>WALCHAND COLLEGE OF ENGINEERING, SANGLI</h1>
+          <h2>(An autonomous institution affiliated to Shivaji University)</h2>
+          
+        
+      </div>
+    </div>
+  </section>-->
+<article>
+    <br>
+    <br><br>
+    <div id="hero"><br><br>
+        <h1>WALCHAND COLLEGE OF ENGINEERING, SANGLI</h1>
+        <h2>(An autonomous institution affiliated to Shivaji University)</h2>
+    </div>
+    <div class="container">
+        <img src="{% static 'about/image/DjangoLogo.jpg' %}" alt="college_photo" class="article-img img-fluid"><br>
+    
+    </div>
+</article>
+{%endblock%}

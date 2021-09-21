@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}WCE Courses{% endblock %}
+{% block content %}
+
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex align-items-center">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
+                <h1>Track Your Doc</h1>
+                <h2>(For WCE Education)</h2>
+                <div class="container-login100">
+                    <div class="wrap-login100 p-l-50 p-r-50 p-t-77 p-b-30">
+                        <form class="login1000-form validate-form" action="" method="post" enctype="multipart/form-data">
+                            <div class="wrap-input100 validate-input m-b-16" data-validate="Valid token is required: BILL2009">
+                                <input class="input100" type="text" name="Token" placeholder="Token">
+                                <span class="focus-input100"></span>
+                                <span class="symbol-input100">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                    </div>
+                </div>
+                {% if user.is_authenticated is False %}
+                <div><a href="{% url 'Login' %}" class="btn-get-started scrollto">Login</a></div>
+                {% endif %}
+            </div>
+            <div class="col-lg-6 order-1 order-lg-2 hero-img">
+                <img src="landing_staticlanding_staticero-img.png" class="img-fluid" alt="">
+            </div>
+        </div>
+    </div>
+
+</section><!-- End Hero -->
+
+<main id="main">
+
+
+
+
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services section-bg">
+
+
+       
+    </section><!-- End Services Section -->
+</main><!-- End #main -->
+
+{% endblock %}
