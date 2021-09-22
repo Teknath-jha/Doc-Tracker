@@ -41,24 +41,22 @@
 <body>
 
   <!-- ======= Header ======= -->
+  <header class="fixed-top">
   <nav class="navbar navbar-expand-md navbar-light bg-light">
   <div class="container-sm">
     <a class="navbar-brand" href="http://www.walchandsangli.ac.in/">
-      <img src="{% static 'landing_static/img/logo_wce.png' %}" width="110" height="60" alt="">
+      <img src="{% static 'landing_static/img/logo_wce.png' %}" width="60" height="30" alt="">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
+      <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-      <a href="" class="nav-link px-3">HOME</a>
+      <a href="/" class="nav-link px-3">HOME</a>
       </li>
       <li class="nav-item">
       <a href="{% url 'login' %}" class="nav-link px-3">LOGIN</a>
-      </li>
-      <li class="nav-item">
-      <a href="{% url 'signup' %}" class="nav-link px-3">SIGNUP</a>
       </li>
       <li class="nav-item">
       <a href="{% url 'about' %}" class="nav-link px-3">ABOUT US</a>
@@ -67,7 +65,7 @@
     </div>
   </div>
   </nav>
-
+  </header>
 <!--<div class="container">-->
     {% block content %}
 
@@ -91,10 +89,9 @@
 
   <!-- Template Main JS File -->
   <script src="{% static 'landing_static/js/main.js' %}"></script>
-  <div class="footer">
+  <div class="footer navbar-fixed-bottom">
       <p>Walchand College Of Engineering,Sangli</p>
   </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
-</div>
 </body>
 </html>

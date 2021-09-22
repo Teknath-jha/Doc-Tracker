@@ -3,14 +3,14 @@
 {% block title %}Doc Tracker{% endblock %}
 {% block content %}
 
-<link href="{%static 'about/css/style.css' %}" rel="stylesheet">
-<link href="{%static 'about/css/style.css' %}" rel="stylesheet">
+<link href="{%static 'landing_static/css/style.css' %}" rel="stylesheet">
+<link href="{%static 'landing_static/css/style.css' %}" rel="stylesheet">
 
 <div class="centerdata container">
     <h1>Track Your Document</h1>
     <form action="/home" method="post">
         <div class="input-group mb-3">
-        <input type="text" class="form-control" name="tokenNo" placeholder="Enter your token number">
+        <input type="text" class="form-control" name="tokenNo" placeholder="Enter your token no">
         <button class="btn btn-primary" type="submit" name="submit">Submit</button>
         </div>
     </form>
