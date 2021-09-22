@@ -40,3 +40,11 @@ class about(View):
     def get(self, request, template_name='about.html'):
         return render(request, template_name)
 
+class login(View):
+    def get(self, request, template_name='login.html'):
+        return render(request, template_name)
+
+class signup(View):
+    def get(self, request, template_name='signup.html'):
+        return render(request, template_name)
+
