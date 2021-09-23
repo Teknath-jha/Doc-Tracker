@@ -9,12 +9,21 @@
 
 <div class="limiter">
     <br><br><br>
-    {%  if errorMessage   %}
-<script>
-    alert('{{ errorMessage }}');
-</script>
-{%  endif %}
+    {% if errorMessage %}
+    <script>
+        alert('{{ errorMessage }}');
+    </script>
+    {% endif %}
 
+    <br><br>
+    {% if loggedOut %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong> Logged Out !</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
 
     <div class="container-login100">
         <div class="wrap-login100 p-l-50 p-r-50 p-t-77 p-b-30">
@@ -51,15 +60,7 @@
                         Not a member?
                     </span>
 
-                    {%   if  logdegOut %}
-<div class="alert alert-warning alert-dismissible fade show" role="alert">
-    <strong> Logged Out !</strong>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <br><br><br>
-{% endif %}
+              
 
                     <a class="txt1 bo1 hov1" href="{% url 'signup' %}">
                         Sign up now

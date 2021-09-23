@@ -69,3 +69,26 @@ class signup(View):
     def get(self, request, template_name='signup.html'):
         return render(request, template_name)
 
+
+    def post(self, request, template_name='signup.html'):
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        phoneNumber = request.POST.get('phoneNumber')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        # confPassword = request.POST.get('conf_password')
+
+        # if password != confPassword:
+        #     err = {'error_message': "Password don't match. Please Try Again."}
+        #     return render(request, 'signup.html', err)
+
+        try:
+            user=authe.create_user_with_email_and_password(email,password)
+            uid= user['localId']
+            data = {"First_name":first_name, "Last_name":last_name , "status":"1"}
+            database.child("users").child(uid).child("details").set(data)
+            return render(request, 'login.html')
+        except:
+            err = {}
+            err['error_message'] = "Account with this Username or Email already exists."
+            return render(request, template_name, err)
