@@ -1,6 +1,7 @@
 import pyrebase
 import os
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.contrib import auth
 from django.views import generic
 from django.shortcuts import render, redirect
 from django.views.generic.base import View
@@ -16,7 +17,7 @@ config = {
     "appId": "1:127465159856:web:1f4f662785411fc525cf75"
 }
 firebase = pyrebase.initialize_app(config)
-auth = firebase.auth()
+authe = firebase.auth()
 database = firebase.database()
 
 
@@ -47,9 +48,22 @@ class login(View):
     def post(self, request, template_name='login.html'):
         email = request.POST.get('email')
         password = request.POST.get('password')
-        user = auth.sign_in_with_email_and_password(email,password)
-        return render(request, 'firstClerk.html', {'MeraMsg': email})
-        # return render(request, 'login.html')
+        try:
+            user = authe.sign_in_with_email_and_password(email,password)
+            print(user)
+            session_id=user['idToken']
+            request.session['uid'] = str(session_id)
+            print("===========")
+            return render(request, 'firstClerk.html', {'MeraMsg': email})
+        except:
+            message="Invalid credentials"
+            return render(request, 'login.html',{"errorMessage":message})
+
+
+def logout_user(request):
+    auth.logout(request)
+    return render(request,'login.html',{"loggedOut":"loggedOut"})
+
 
 class signup(View):
     def get(self, request, template_name='signup.html'):
