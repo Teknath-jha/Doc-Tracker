@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>{% block title %}
+            
+      {% endblock %}</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'landing_static/img/favicon.png'%}" rel="icon">
+  <link href="{%static 'landing_static/img/apple-touch-icon.png'%}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Dosis:300,400,500,,600,700,700i|Lato:300,300i,400,400i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{%static 'landing_static/vendor/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+  <link href="{%static 'landing_static/vendor/icofont/icofont.min.css'%}" rel="stylesheet">
+  <link href="{%static 'landing_static/vendor/boxicons/css/boxicons.min.css'%}" rel="stylesheet">
+  <link href="{%static 'landing_static/vendor/venobox/venobox.css'%}" rel="stylesheet">
+  <link href="{%static 'landing_static/vendor/line-awesome/css/line-awesome.min.css' %}" rel="stylesheet">
+  <link href="{%static 'landing_static/vendor/owl.carousel/assets/owl.carousel.min.css'%}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{%static 'landing_static/css/style.css' %}"  rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Butterfly - v2.2.0
+  * Template URL: https://bootstrapmade.com/butterfly-free-bootstrap-theme/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header class="fixed-top">
+  <nav class="navbar navbar-expand-md navbar-light bg-light">
+  <div class="container-sm">
+    <a class="navbar-brand" href="http://www.walchandsangli.ac.in/">
+      <img src="{% static 'landing_static/img/logo_wce.png' %}" width="60" height="30" alt="">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+      <a href="/" class="nav-link px-3">HOME</a>
+      </li>
+      <li class="nav-item">
+      <a href="{% url 'login' %}" class="nav-link px-3">LOGIN</a>
+      </li>
+      <li class="nav-item">
+      <a href="{% url 'about' %}" class="nav-link px-3">ABOUT US</a>
+      </li>
+      </ul>
+    </div>
+  </div>
+  </nav>
+  </header>
+<!--<div class="container">-->
+    {% block content %}
+
+    {% endblock %}
+  <!--</div>-->
+
+ 
+
+  <!-- <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a> -->
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'landing_static/vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'landing_static/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'landing_static/vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+  <script src="{% static 'landing_static/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'landing_static/vendor/venobox/venobox.min.js' %}"></script>
+  <script src="{% static 'landing_static/vendor/waypoints/jquery.waypoints.min.js' %}"></script>
+  <script src="{% static 'landing_static/vendor/counterup/counterup.min.js' %}"></script>
+  <script src="{% static 'landing_static/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'landing_static/vendor/owl.carousel/owl.carousel.min.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'landing_static/js/main.js' %}"></script>
+  <div class="footer navbar-fixed-bottom">
+      <p>Walchand College Of Engineering,Sangli</p>
+  </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+</body>
+</html>
