@@ -53,16 +53,18 @@ class login(View):
             print(user)
             session_id=user['idToken']
             request.session['uid'] = str(session_id)
-            print("===========")
             return render(request, 'firstClerk.html', {'MeraMsg': email})
         except:
-            message="Invalid credentials"
-            return render(request, 'login.html',{"errorMessage":message})
+            err = {}
+            err['error_message'] = "Invalid credentials"
+            return render(request, 'login.html',err)
 
 
 def logout_user(request):
     auth.logout(request)
-    return render(request,'login.html',{"loggedOut":"loggedOut"})
+    message = {}
+    message['loggedOut'] = "Successfully Logged Out"
+    return render(request,'login.html',message)
 
 
 class signup(View):
@@ -90,5 +92,6 @@ class signup(View):
             return render(request, 'login.html')
         except:
             err = {}
-            err['error_message'] = "Account with this Username or Email already exists."
+            err['error_message1'] = "Account with this Username or Email already exists."
+            err['error_message2'] = "Password length must be atleast 6 ."
             return render(request, template_name, err)
