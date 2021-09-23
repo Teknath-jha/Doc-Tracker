@@ -16,7 +16,7 @@ config = {
     "appId": "1:127465159856:web:1f4f662785411fc525cf75"
 }
 firebase = pyrebase.initialize_app(config)
-authe = firebase.auth()
+auth = firebase.auth()
 database = firebase.database()
 
 
@@ -43,6 +43,13 @@ class about(View):
 class login(View):
     def get(self, request, template_name='login.html'):
         return render(request, template_name)
+    
+    def post(self, request, template_name='login.html'):
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        user = auth.sign_in_with_email_and_password(email,password)
+        return render(request, 'firstClerk.html', {'MeraMsg': email})
+        # return render(request, 'login.html')
 
 class signup(View):
     def get(self, request, template_name='signup.html'):

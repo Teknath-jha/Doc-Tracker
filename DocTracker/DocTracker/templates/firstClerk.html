@@ -1,0 +1,40 @@
+{% extends "base.html"%}
+{%load static%}
+{% block title %}About Developers{% endblock %}
+{% block content %}
+
+<link href="{%static 'landing_static/css/style.css' %}" rel="stylesheet">
+<link href="{%static 'landing_static/css/style.css' %}" rel="stylesheet">
+
+
+<!-- -------------------@ POST LOGIN-------------------------- -->
+<div class="container ">
+    <br><br><br><br>
+    <div class="row mx-px-auto">
+        <div class='col-md-4'>
+            <div class='our-team' style="width: 18rem; border-radius: 5rem;">
+                <div class='picture'><img class='img-fluid' style='max-width: 130px; height:130px ;'
+                        src="{% static 'images/150rupiyadega.png' %}">
+                </div>
+                <div class='team-content'>
+                    <h3 class='name'>Logged In  As <strong> {{MeraMsg}}</strong></h3>
+                    <h4 class='title' style='margin-bottom:30px;'>150/- Dega</h4>
+                    <p class='fw-light' style=>FullStavk Developer</p>
+                    <h4 class='title' style='line-height:25px ;margin-bottom:20px'>Phir Here Pheri</h4>
+                </div>
+                <ul class='social'>
+                    <li><a href=mailto:@teknath.jha@walchandsangli.ac.in aria-hidden='true'><i class="fa fa-envelope"
+                                aria-hidden="true"></i></a>
+                    </li>
+                    <li><a href=" " title="LinkedIn" class="btn btn-linkedin btn-lg"><i
+                                class="fa fa-linkedin fa-fw"></i></a>
+                    </li>
+                    <li><a href="#" title="Facebook" class="btn btn-facebook btn-lg"><i
+                                class="fa fa-facebook fa-fw"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}
