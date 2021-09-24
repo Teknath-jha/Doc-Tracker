@@ -52,7 +52,9 @@ class login(View):
             user = authe.sign_in_with_email_and_password(email,password)
             print(user)
             session_id=user['idToken']
+            print("******************************************")
             request.session['uid'] = str(session_id)
+            print("******************************************")
             return render(request, 'firstClerk.html', {'MeraMsg': email})
         except:
             err = {}
@@ -87,7 +89,30 @@ class signup(View):
         try:
             user=authe.create_user_with_email_and_password(email,password)
             uid= user['localId']
-            data = {"First_name":first_name, "Last_name":last_name , "status":"1"}
+            data = {"First_name":first_name, "Last_name":last_name ,"phoneNumber":phoneNumber, "status":"1"}
+            database.child("users").child(uid).child("details").set(data)
+            return render(request, 'login.html')
+        except:
+            err = {}
+            err['error_message1'] = "Account with this Username or Email already exists."
+            err['error_message2'] = "Password length must be atleast 6 ."
+            return render(request, template_name, err)
+
+
+class create(View):
+    def get(self, request, template_name='create.html'):
+        return render(request, template_name)
+    
+    def post(self, request, template_name='create.html'):
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        phoneNumber = request.POST.get('phoneNumber')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        try:
+            user=authe.create_user_with_email_and_password(email,password)
+            uid= user['localId']
+            data = {"First_name":first_name, "Last_name":last_name ,"phoneNumber":phoneNumber, "status":"1"}
             database.child("users").child(uid).child("details").set(data)
             return render(request, 'login.html')
         except:

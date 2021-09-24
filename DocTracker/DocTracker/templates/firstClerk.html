@@ -17,16 +17,24 @@
                         src="{% static 'images/150rupiyadega.png' %}">
                 </div>
                 <div class='team-content'>
-                    <h3 class='name'>Logged In  As <strong> {{MeraMsg}}</strong></h3>
+                    <h3 class='name'>Logged In As <strong> {{MeraMsg}}</strong></h3>
                     <h4 class='title' style='margin-bottom:30px;'>150/- Dega</h4>
-                    <p class='fw-light' style=>FullStavk Developer</p>
-                    <h4 class='title' style='line-height:25px ;margin-bottom:20px'>Phir Here Pheri</h4>
+                    <p class='fw-light' style=>Token No. </p>
+                    <h4 class='title' style='line-height:25px ;margin-bottom:20px'><strong>token no.</strong></h4>
                 </div>
-                <a  class="btn btn-primary"href="{% url 'logout' %}">
+                <a class="btn btn-primary" href="{% url 'logout' %}">
                     Logout
+                </a>
+                <a class="btn btn-primary" href="{% url 'create' %}">
+                    create
+                </a>
+                <a class="btn btn-primary" href="{% url 'create' %}">
+                    view
                 </a>
             </div>
         </div>
     </div>
 </div>
+
+
 {%endblock%}
