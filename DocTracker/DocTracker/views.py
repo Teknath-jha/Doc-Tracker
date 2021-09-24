@@ -41,38 +41,40 @@ class about(View):
     def get(self, request, template_name='about.html'):
         return render(request, template_name)
 
+
 class login(View):
     def get(self, request, template_name='login.html'):
         return render(request, template_name)
-    
+
     def post(self, request, template_name='login.html'):
         email = request.POST.get('email')
         password = request.POST.get('password')
         try:
-            user = authe.sign_in_with_email_and_password(email,password)
+            user = authe.sign_in_with_email_and_password(email, password)
             print(user)
-            session_id=user['idToken']
-            print("******************************************")
+            session_id = user['idToken']
             request.session['uid'] = str(session_id)
-            print("******************************************")
-            return render(request, 'firstClerk.html', {'MeraMsg': email})
+            msg={}
+            msg['email']=email
+            msg['session_id'] = session_id
+            msg['local_id'] = user['localId']
+            return render(request, 'firstClerk.html', msg)
         except:
             err = {}
             err['error_message'] = "Invalid credentials"
-            return render(request, 'login.html',err)
+            return render(request, 'login.html', err)
 
 
 def logout_user(request):
     auth.logout(request)
     message = {}
     message['loggedOut'] = "Successfully Logged Out"
-    return render(request,'login.html',message)
+    return render(request, 'login.html', message)
 
 
 class signup(View):
     def get(self, request, template_name='signup.html'):
         return render(request, template_name)
-
 
     def post(self, request, template_name='signup.html'):
         first_name = request.POST.get('first_name')
@@ -87,9 +89,13 @@ class signup(View):
         #     return render(request, 'signup.html', err)
 
         try:
-            user=authe.create_user_with_email_and_password(email,password)
-            uid= user['localId']
-            data = {"First_name":first_name, "Last_name":last_name ,"phoneNumber":phoneNumber, "status":"1"}
+            user = authe.create_user_with_email_and_password(email, password)
+            uid = user['localId']
+            data = {"First_name": first_name,
+                         "Last_name": last_name,
+                         "email":email,
+                         "phoneNumber": phoneNumber, 
+                         "status": "1"}
             database.child("users").child(uid).child("details").set(data)
             return render(request, 'login.html')
         except:
@@ -102,19 +108,45 @@ class signup(View):
 class create(View):
     def get(self, request, template_name='create.html'):
         return render(request, template_name)
-    
+
     def post(self, request, template_name='create.html'):
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        phoneNumber = request.POST.get('phoneNumber')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
+        import time
+        from datetime import datetime, timezone
+        import pytz
         try:
-            user=authe.create_user_with_email_and_password(email,password)
-            uid= user['localId']
-            data = {"First_name":first_name, "Last_name":last_name ,"phoneNumber":phoneNumber, "status":"1"}
-            database.child("users").child(uid).child("details").set(data)
-            return render(request, 'login.html')
+            tz = pytz.timezone('Asia/Kolkata')
+            time_now = datetime.now(timezone.utc).astimezone(tz)
+            millis = int(time.mktime(time_now.timetuple()))
+            print(str(millis))
+
+            first_name = request.POST.get('first_name')
+            last_name = request.POST.get('last_name')
+            phoneNumber = request.POST.get('phoneNumber')
+            email = request.POST.get('email')
+            # password = request.POST.get('password')
+            idtoken = request.session['uid']
+            a = authe.get_account_info(idtoken)
+            a = a['users']
+            a = a[0]
+            a = a['localId']
+
+            print(str(a))
+            data = {
+                "first_name": first_name,
+                "last_name": last_name,
+                "email": email,
+                "phoneNumber": phoneNumber,
+            }
+            database.child('users').child(a).child(
+                'reports').child(millis).set(data)
+            msg = {}
+            # msg['name'] = database.child('users').child(a).child('reports').child('First_name').get().val()
+            msg['email']=email
+            msg['phoneNumber'] = phoneNumber
+            msg['local_id'] = a['localId']
+            print(msg)
+            print("*********************************************************")
+            return render(request, 'create.html',msg)
         except:
             err = {}
             err['error_message1'] = "Account with this Username or Email already exists."
