@@ -6,6 +6,8 @@ from django.views import generic
 from django.shortcuts import render, redirect
 from django.views.generic.base import View
 from django.contrib.auth.hashers import check_password
+from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 
 config = {
     "apiKey": "AIzaSyC3DKMArlBjbnv2l77aUUsgAi_-bR9bFD8",
@@ -109,7 +111,7 @@ class create(View):
     def get(self, request, template_name='create.html'):
         return render(request, template_name)
 
-    def post(self, request, template_name='create.html'):
+    def post(self, request, template_name='login.html'):
         import time
         from datetime import datetime, timezone
         import pytz
@@ -118,18 +120,20 @@ class create(View):
             time_now = datetime.now(timezone.utc).astimezone(tz)
             millis = int(time.mktime(time_now.timetuple()))
             print(str(millis))
-
             first_name = request.POST.get('first_name')
             last_name = request.POST.get('last_name')
             phoneNumber = request.POST.get('phoneNumber')
             email = request.POST.get('email')
+            msg1 = {}
+            msg1['email']=email
+            msg1['phoneNumber'] = phoneNumber
             # password = request.POST.get('password')
             idtoken = request.session['uid']
             a = authe.get_account_info(idtoken)
             a = a['users']
             a = a[0]
             a = a['localId']
-
+            # msg1['local_id'] = a['localId']
             print(str(a))
             data = {
                 "first_name": first_name,
@@ -137,18 +141,25 @@ class create(View):
                 "email": email,
                 "phoneNumber": phoneNumber,
             }
+            print("****------------***********")
             database.child('users').child(a).child(
                 'reports').child(millis).set(data)
-            msg = {}
-            # msg['name'] = database.child('users').child(a).child('reports').child('First_name').get().val()
-            msg['email']=email
-            msg['phoneNumber'] = phoneNumber
-            msg['local_id'] = a['localId']
-            print(msg)
-            print("*********************************************************")
-            return render(request, 'create.html',msg)
+            print("***111111---Saved---11111111*******")
+            
+
+            send_mail(
+                'Doc Tracker ',
+                'Welcome to doc tracker your doc is under processes',
+                'farookdio72@gmail.com',
+                ['jhateknath64@gmail.com',email,'aditsan44@gmail.com',],
+
+            )
+            print("--------Sent--------")
+            return render(request, 'create.html',msg1)
         except:
+            print("-----------Not sent--------------")
             err = {}
-            err['error_message1'] = "Account with this Username or Email already exists."
-            err['error_message2'] = "Password length must be atleast 6 ."
-            return render(request, template_name, err)
+            # err['error_message1'] = "Account with this Username or Email already exists."
+            err['error_message1'] = "Fails to send email message."
+            # err['error_message2'] = "Password length must be atleast 6 ."
+            return render(request, 'firstClerk.html', err)
