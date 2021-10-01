@@ -88,6 +88,7 @@ class signup(View):
 
         # if password != confPassword:
         #     err = {'error_message': "Password don't match. Please Try Again."}
+
         #     return render(request, 'signup.html', err)
 
         try:
@@ -124,15 +125,27 @@ class create(View):
             last_name = request.POST.get('last_name')
             phoneNumber = request.POST.get('phoneNumber')
             email = request.POST.get('email')
+            # bill=request.POST.get('Bill','False')
+            # report=request.POST.get('Report','False')
+            # proposal=request.POST.get('Proposal','False')
+            # rrequest=request.POST.get('Request','False')
+            billCode = request.POST.getlist("checks1")
+            
+            print("line 131")
+            print(billCode)
             msg1 = {}
             msg1['email']=email
             msg1['phoneNumber'] = phoneNumber
             # password = request.POST.get('password')
             idtoken = request.session['uid']
             a = authe.get_account_info(idtoken)
+            
             a = a['users']
             a = a[0]
+            clerkEmail=a['email']
+            # clerkName=a['First_name']
             a = a['localId']
+            print("line 142")
             # msg1['local_id'] = a['localId']
             print(str(a))
             data = {
@@ -140,21 +153,47 @@ class create(View):
                 "last_name": last_name,
                 "email": email,
                 "phoneNumber": phoneNumber,
+                "timeStamp":millis,
             }
-            print("****------------***********")
+            print("line 150")
             database.child('users').child(a).child(
                 'reports').child(millis).set(data)
-            print("***111111---Saved---11111111*******")
+            data1={
+                 "By": clerkEmail,
+                "at": millis,
+            }
+            # database.child('Documents').child("Bill").child(millis).push(data1)
+            print("line 164")
+            # print(billCode )
+            if billCode==1 :
+                database.child('Documents').child("Bill").child(millis).push(data1)
+                print("Bill")
+            if billCode==2 :
+                database.child('Documents').child("Report").child(millis).push(data1)
+                print("Report")
+            elif billCode== 3:
+                database.child('Documents').child("Proposals").child(millis).push(data1)
+                print("Proposal")
+            elif billCode==4:
+                database.child('Documents').child("Requests").child(millis).push(data1)
+                print("Request")
+    
+            print("***Saved*****")
             
-
+            message= 'Welcome to doc tracker . \n Token No. '+str(millis)
+            print(message)
             send_mail(
-                'Doc Tracker ',
-                'Welcome to doc tracker your doc is under processes',
+                'WCE Doc Tracker ',
+               message,
                 'farookdio72@gmail.com',
-                ['jhateknath64@gmail.com',email,'aditsan44@gmail.com',],
+                [email],
 
             )
+
+
             print("--------Sent--------")
+
+
             return render(request, 'create.html',msg1)
         except:
             print("-----------Not sent--------------")

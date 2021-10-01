@@ -41,7 +41,9 @@
 }
 
 
-
+.my_checkbox {
+  width: 30px; height: 30px;
+}
 
 /*  start navigation  */
 

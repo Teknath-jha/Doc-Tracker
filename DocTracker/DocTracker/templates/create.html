@@ -15,11 +15,11 @@
             <div class='col-md-4'>
                 <div class='our-team' style="width: 18rem; border-radius: 5rem;">
                     <div class='picture'><img class='img-fluid' style='max-width: 130px; height:130px ;'
-                            src="{% static 'images/150rupiyadega.png' %}">
+                            src="{% static 'images/staff.png' %}">
                     </div>
                     <div class='team-content'>
                         <h3 class='name'>Logged In As <strong> {{MeraMsg}}</strong></h3>
-                        <h4 class='title' style='margin-bottom:30px;'>150/- Dega</h4>
+                        <h4 class='title' style='margin-bottom:30px;'>Staff Name </h4>
                         <p class='fw-light' style=> Hi </p>
                         <h4 class='title' style='line-height:25px ;margin-bottom:20px'><strong>{{name}}</strong></h4>
                     </div>
@@ -56,6 +56,30 @@
     <div class="container-login100">
         <div class="wrap-login100 p-l-50 p-r-50 p-t-77 p-b-30">
             <h1>Add a doc</h1>
+            <div class="wrap-input100 validate-input m-b-16" data-validate="document type is required">
+
+                <div class="form-check form-switch">
+                    <input class="form-check-input   " type="radio" id="Bill"  name="checks1" value=1   >
+                    <label class="form-check-label" >Bill</label>
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="radio" id="Report" name="checks1" value=2  >
+                    <label class="form-check-label" > Report</label>
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="radio" id="Proposal" name="checks1" value=3  >
+                    <label class="form-check-label" > Proposal</label>
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="radio" id="Request" name="checks1" value=4  >
+                    <label class="form-check-label"> Request </label>
+                </div>
+                
+                <!-- <span class="focus-input100"></span>
+                <span class="symbol-input100">
+                    <i class="lnr lnr-envelope" aria-hidden="true"></i>
+                </span> -->
+            </div>
             <form class="login100-form validate-form" action="" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <span class="login100-form-title p-b-55">
@@ -92,7 +116,7 @@
                     </span>
                 </div>
                 <div class="container-login100-form-btn p-t-25">
-                    <button class="login100-form-btn" type="submit" onclick="location.href='{% url 'create' %}'">
+                    <button class="login100-form-btn" type="submit"   value="click"  onclick="location.href='{% url 'create' %}'">
                         Generate Token
                     </button>
                 </div>
