@@ -129,7 +129,8 @@ class create(View):
             # report=request.POST.get('Report','False')
             # proposal=request.POST.get('Proposal','False')
             # rrequest=request.POST.get('Request','False')
-            billCode = request.POST.getlist("checks1")
+            print("132")
+            billCode = request.POST['billType']
             
             print("line 131")
             print(billCode)
@@ -165,16 +166,16 @@ class create(View):
             # database.child('Documents').child("Bill").child(millis).push(data1)
             print("line 164")
             # print(billCode )
-            if billCode==1 :
+            if billCode=="Bill" :
                 database.child('Documents').child("Bill").child(millis).push(data1)
                 print("Bill")
-            if billCode==2 :
+            if billCode=="Report" :
                 database.child('Documents').child("Report").child(millis).push(data1)
                 print("Report")
-            elif billCode== 3:
+            elif billCode== "Proposal":
                 database.child('Documents').child("Proposals").child(millis).push(data1)
                 print("Proposal")
-            elif billCode==4:
+            elif billCode=="Request":
                 database.child('Documents').child("Requests").child(millis).push(data1)
                 print("Request")
     
