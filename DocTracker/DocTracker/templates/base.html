@@ -7,8 +7,8 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>{% block title %}
-            
-      {% endblock %}</title>
+
+    {% endblock %}</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -17,7 +17,9 @@
   <link href="{%static 'landing_static/img/apple-touch-icon.png'%}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Dosis:300,400,500,,600,700,700i|Lato:300,300i,400,400i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Dosis:300,400,500,,600,700,700i|Lato:300,300i,400,400i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="{%static 'landing_static/vendor/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
@@ -28,28 +30,28 @@
   <link href="{%static 'landing_static/vendor/owl.carousel/assets/owl.carousel.min.css'%}" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="{%static 'landing_static/css/style.css' %}"  rel="stylesheet">
+  <link href="{%static 'landing_static/css/style.css' %}" rel="stylesheet">
 
 
   <!-- //login -->
-  <!--===============================================================================================-->	
-<link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/>
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'fonts/Linearicons-Free-v1.0.0/icon-font.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
-<!--===============================================================================================-->
+  <!--===============================================================================================-->
+  <link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{% static 'fonts/Linearicons-Free-v1.0.0/icon-font.min.css' %}">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+  <!--===============================================================================================-->
 
 
   <!-- =======================================================
@@ -63,54 +65,69 @@
 <body>
 
   <!-- ======= Header ======= -->
-  <header class="fixed-top">
-  <nav class="navbar navbar-expand-md navbar-light bg-light">
-  <div class="container-sm">
-    <a class="navbar-brand" href="http://www.walchandsangli.ac.in/">
-      <img src="{% static 'landing_static\img\iarkqxtsdhpl7n2mcgegndownload (1)SREZ.png' %}" width="60" height="45" alt="">
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-      <a href="/" class="nav-link px-3">HOME</a>
-      </li>
-      <li class="nav-item">
-      <a href="{% url 'login' %}" class="nav-link px-3">LOGIN</a>
-      </li>
-      <li class="nav-item">
-      <a href="{% url 'about' %}" class="nav-link px-3">ABOUT US</a>
-      </li>
-      {% if user.is_authenticated %}
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <!-- {{user.first_name}} {{user.last_name}} -->
+  <header class="relative-top">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+      <!-- <div class="container-sm"> -->
+        <a class="navbar-brand" href="http://www.walchandsangli.ac.in/">
+          <img src="{% static 'landing_static\img\iarkqxtsdhpl7n2mcgegndownload (1)SREZ.png' %}" width="60" height="45"
+            alt="LOGO">
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-        </div>
-      </li>
-      {% else %}
-      <li class="nav-item">
-        <a class="nav-link px-3" href="{% url 'login' %}">Sign-In</a>
-      </li>
-      {% endif %}
-      </ul>
-    </div>
-  </div>
-  </nav>
-  </header>
-<!--<div class="container">-->
-    {% block content %}
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a href="/" class="nav-link px-3">HOME</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'login' %}" class="nav-link px-3">LOGIN</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'about' %}" class="nav-link px-3">ABOUT US</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <!-- {{user.first_name}} {{user.last_name}} -->
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+              </div>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link px-3" href="{% url 'login' %}">Sign-In</a>
+            </li>
+            {% endif %}
 
-    {% endblock %}
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link px-3" href="{% url 'logout' %}">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link px-3" href="{% url 'logout' %}">Logout</a>
+            </li>
+
+            {% endif %}
+
+          </ul>
+        </div>
+      </div>
+    <!-- </nav> -->
+  </header>
+  <!--<div class="container">-->
+  {% block content %}
+
+  {% endblock %}
   <!--</div>-->
 
- 
+
 
   <!-- <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a> -->
 
@@ -128,8 +145,11 @@
   <!-- Template Main JS File -->
   <script src="{% static 'landing_static/js/main.js' %}"></script>
   <div class="footer">
-      <p>Walchand College Of Engineering,Sangli</p>
+    <p>Walchand College Of Engineering,Sangli</p>
   </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+    crossorigin="anonymous"></script>
 </body>
+
 </html>

@@ -38,6 +38,8 @@ class landingPage(View):
             message['message'] = 'nothing'
         return render(request, template_name)
 
+    
+
 
 class about(View):
     def get(self, request, template_name='about.html'):
@@ -167,6 +169,7 @@ class create(View):
             print("line 164")
             # print(billCode )
             if billCode=="Bill" :
+                
                 database.child('Documents').child("Bill").child(millis).push(data1)
                 print("Bill")
             if billCode=="Report" :

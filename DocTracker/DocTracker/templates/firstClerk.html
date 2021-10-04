@@ -20,70 +20,6 @@
                 </span>
                 <p style="color:#d33f8d">{{error_message1}}</p>
                 <p style="color:#d33f8d">{{error_message2}}</p><br>
-                <div class="wrap-input100 validate-input m-b-16" data-validate="Valid username is required">
-                   
-                <div class="wrap-input100 validate-input m-b-16" data-validate="document type is required">
-                    <select class="form-select input100" required>
-                        <option selected>Document type</option>
-                        <option value="1" name="Bill">Bill</option>
-                        <option value="2" name="Request">Request</option>
-                        <option value="3" name="Report">Report</option>
-                        <option value="4" name="Proposal">Proposal</option>
-                    </select>
-                    <span class="focus-input100"></span>
-                    <span class="symbol-input100">
-                        <i class="lnr lnr-envelope" aria-hidden="true"></i>
-                    </span>
-                </div>
-                 <div class="wrap-input100 validate-input m-b-16" data-validate="document type is required">
-                    <select class="form-select input100" required>
-                        <option selected>To Whom</option>
-                        <option value="1">Director</option>
-                        <option value="2">Registrar</option>
-                        <option value="3">Finanace officer</option>
-                    </select>
-                    <span class="focus-input100"></span>
-                    <span class="symbol-input100">
-                        <i class="fa fa-user" aria-hidden="true"></i>
-                    </span>
-                </div>
-
-                <div class="wrap-input100 validate-input m-b-16" data-validate="First name is required">
-                    <input class="input100" type="text" name="first_name" placeholder="sender's First name" required>
-                    <span class="focus-input100"></span>
-                    <span class="symbol-input100">
-                        <i class="fa fa-user" aria-hidden="true"></i>
-                    </span>
-                </div>
-
-
-                <div class="wrap-input100 validate-input m-b-16" data-validate="Last name is required">
-                    <input class="input100" type="text" name="last_name" placeholder="sender's Last name" required>
-                    <span class="focus-input100"></span>
-                    <span class="symbol-input100">
-                        <i class="fa fa-user" aria-hidden="true"></i>
-                    </span>
-                </div>
-
-                <div class="wrap-input100 validate-input m-b-16" data-validate="Valid email is required: ex@abc.xyz">
-                    <input class="input100" type="email" name="email" placeholder="sender's Email" required>
-                    <span class="focus-input100"></span>
-                    <span class="symbol-input100">
-                        <span class="lnr lnr-envelope"></span>
-                    </span>
-                </div>
-                <div class="wrap-input100 validate-input m-b-16" data-validate="Valid contact is required">
-                    <input class="input100" type="text" name="phoneNumber" placeholder="sender's Contact" required>
-                    <span class="focus-input100"></span>
-                    <span class="symbol-input100">
-                        <i class="fa fa-phone" aria-hidden="true"></i>
-                    </span>
-                </div>
-                <div class='team-content'>
-                    <h3 class='name'>Login as  <strong> {{email}}</strong></h3>
-                    <p class='fw-light' style=>Local Id </p>
-                    <h4 class='title' style='line-height:25px ;margin-bottom:20px'><strong>{{local_id}}</strong></h4>
-                </div>
                 <a class="btn btn-primary" href="{% url 'logout' %}">
                     Logout
                 </a>
@@ -93,9 +29,17 @@
                 <a class="btn btn-primary" href="{% url 'create' %}">
                     view
                 </a>
-            </div>
+                <div class='team-content'>
+                    <h3 class='name'>Login as <strong> {{email}}</strong></h3>
+                    <!-- <p class='fw-light' style=>Local Id </p> -->
+                    <h4 class='title' style='line-height:25px ;margin-bottom:20px'>
+                        <!-- <strong>{{local_id}}</strong> -->
+                    </h4>
+                </div>
+              
         </div>
     </div>
+</div>
 </div>
 
 
