@@ -7,19 +7,44 @@
 <link href="{%static 'landing_static/css/style.css' %}" rel="stylesheet">
 
 <div class="centerdata container">
+    {% if err %}
+    <h1>{{error_message}}</h1>
+    {% endif %}
     <h1>Track Your Document</h1>
-    <form action="/home" method="post">
+    <form action="" method="post">
+        {% csrf_token %}
         <div class="input-group mb-3">
         
-            <div class="wrap-input100 validate-input m-b-16" data-validate="Valid email is required: ex@abc.xyz">
-                <input class="input100" type="text" name="username" placeholder="Token No e.g B21..">
+            {% if token %} 
+            <div class="wrap-input50  m-b-6" >
+                <h1    class="input100" style="font-family:'Oswald' ; font-size:60px; text-align:left; font-weight:bold"><strong>{{token}}</strong>    </h1>
+                   <span class="focus-input100"></span>
+               </div>
+               <!-- <h1    class="input100" style="font-family:'Oswald' ; font-size:20px"> <strong>Refresh</strong>   </h1>
+                   <span class="focus-input100"></span>
+               </div> -->
+            {% else %}  
+            <div class="wrap-input100 validate-input m-b-16"   >
+                <input type="text" class="input100" name="token" placeholder="Token No e.g 121.." >
                 <span class="focus-input100"></span>
-                <!-- <span class="symbol-input100">
-                    <i class="fa fa-user" aria-hidden="false"></i>
-                </span> -->
             </div>
+            {% endif %}  
+            {% for data in status %}  
+            <div class="wrap-input100 validate-input m-b-16" >
+             <h3    class="input100" >{{data}}    </h3>
+              
+            {%  endfor %}
+<br>
+{% if not  token %} 
         <button class="btn btn-primary btn-lg btn-block" type="submit" name="submit">Submit</button>
+        {% endif %}
         </div>
+     
     </form>
+    <!-- {% for x in data %} -->
+
+    
+
+    <!-- {% endfor %} -->
 </div>
 {% endblock %}

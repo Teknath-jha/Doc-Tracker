@@ -8,6 +8,10 @@ from django.views.generic.base import View
 from django.contrib.auth.hashers import check_password
 from django.core.mail import send_mail
 from django.core.mail import EmailMessage
+from collections import OrderedDict
+import datetime 
+from datetime import timedelta
+
 
 config = {
     "apiKey": "AIzaSyC3DKMArlBjbnv2l77aUUsgAi_-bR9bFD8",
@@ -38,7 +42,51 @@ class landingPage(View):
             message['message'] = 'nothing'
         return render(request, template_name)
 
-    
+    def post(self, request, template_name='landingPage.html'):
+        token = request.POST.get('token')
+        try:
+            print("In try of post")
+            data = database.child('Documents').child(
+                "Bill").child(token).get().val()
+
+            print(" Fetched ")
+            msg = {}
+            msg['token'] = token
+            od=data
+            
+            status=[]
+            x=1
+            for val in od.values():
+                s=""
+                for k, v in val.items():
+                        # print(k, v)
+                        
+                        if x%2==0:
+                            # utc_time = datetime.datetime.fromtimestamp(v / 1000.0, tz=datetime.timezone.utc)
+                            utc_time = datetime.datetime.fromtimestamp(v , tz=datetime.timezone.utc)
+                            # msg[k]=utc_time
+                            print(utc_time)
+                            s=s+str(utc_time)+"  \n"
+                            # status.append(utc_time)
+                            print("===============")
+                        else:
+                            msg[k]=v
+                            print(k,v)
+                            # status.append(v)
+                            s=s+str(v) + " at  "
+                            print("-=-=-=-=-=-=-=-=-=-")
+                        x=x+1
+                status.append(s)
+                print(s)
+
+            msg['status'] = status
+            # status.clear()
+            return render(request, 'landingPage.html', msg)
+        except:
+            msg = {}
+            msg['token'] = token
+            # msg['error_message'] = "Failed fetch"
+            return render(request, template_name, msg)
 
 
 class about(View):
@@ -58,8 +106,8 @@ class login(View):
             print(user)
             session_id = user['idToken']
             request.session['uid'] = str(session_id)
-            msg={}
-            msg['email']=email
+            msg = {}
+            msg['email'] = email
             msg['session_id'] = session_id
             msg['local_id'] = user['localId']
             return render(request, 'firstClerk.html', msg)
@@ -97,10 +145,10 @@ class signup(View):
             user = authe.create_user_with_email_and_password(email, password)
             uid = user['localId']
             data = {"First_name": first_name,
-                         "Last_name": last_name,
-                         "email":email,
-                         "phoneNumber": phoneNumber, 
-                         "status": "1"}
+                    "Last_name": last_name,
+                    "email": email,
+                    "phoneNumber": phoneNumber,
+                    "status": "1"}
             database.child("users").child(uid).child("details").set(data)
             return render(request, 'login.html')
         except:
@@ -133,19 +181,19 @@ class create(View):
             # rrequest=request.POST.get('Request','False')
             print("132")
             billCode = request.POST['billType']
-            
+
             print("line 131")
             print(billCode)
             msg1 = {}
-            msg1['email']=email
+            msg1['email'] = email
             msg1['phoneNumber'] = phoneNumber
             # password = request.POST.get('password')
             idtoken = request.session['uid']
             a = authe.get_account_info(idtoken)
-            
+
             a = a['users']
             a = a[0]
-            clerkEmail=a['email']
+            clerkEmail = a['email']
             # clerkName=a['First_name']
             a = a['localId']
             print("line 142")
@@ -156,49 +204,50 @@ class create(View):
                 "last_name": last_name,
                 "email": email,
                 "phoneNumber": phoneNumber,
-                "timeStamp":millis,
+                "timeStamp": millis,
             }
             print("line 150")
             database.child('users').child(a).child(
                 'reports').child(millis).set(data)
-            data1={
-                 "By": clerkEmail,
+            data1 = {
+                "By": clerkEmail,
                 "at": millis,
             }
             # database.child('Documents').child("Bill").child(millis).push(data1)
             print("line 164")
             # print(billCode )
-            if billCode=="Bill" :
-                
-                database.child('Documents').child("Bill").child(millis).push(data1)
+            if billCode == "Bill":
+                database.child('Documents').child("Bill").child(
+                    millis).child("data").push(data1)
                 print("Bill")
-            if billCode=="Report" :
-                database.child('Documents').child("Report").child(millis).push(data1)
+            if billCode == "Report":
+                database.child('Documents').child(
+                    "Report").child(millis).push(data1)
                 print("Report")
-            elif billCode== "Proposal":
-                database.child('Documents').child("Proposals").child(millis).push(data1)
+            elif billCode == "Proposal":
+                database.child('Documents').child(
+                    "Proposals").child(millis).push(data1)
                 print("Proposal")
-            elif billCode=="Request":
-                database.child('Documents').child("Requests").child(millis).push(data1)
+            elif billCode == "Request":
+                database.child('Documents').child(
+                    "Requests").child(millis).push(data1)
                 print("Request")
-    
+
             print("***Saved*****")
-            
-            message= 'Welcome to doc tracker . \n Token No. '+str(millis)
+
+            message = 'Welcome to doc tracker . \n Token No. '+str(millis)
             print(message)
             send_mail(
                 'WCE Doc Tracker ',
-               message,
+                message,
                 'farookdio72@gmail.com',
                 [email],
 
             )
 
-
             print("--------Sent--------")
 
-
-            return render(request, 'create.html',msg1)
+            return render(request, 'create.html', msg1)
         except:
             print("-----------Not sent--------------")
             err = {}
