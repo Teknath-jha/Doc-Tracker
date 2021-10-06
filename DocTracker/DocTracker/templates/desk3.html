@@ -1,6 +1,6 @@
 {% extends "base.html"%}
 {%load static%}
-{% block title %}Clerk{% endblock %}
+{% block title %}Desk-3{% endblock %}
 {% block content %}
 
 <link href="{%static 'landing_static/css/style.css' %}" rel="stylesheet">
@@ -16,7 +16,7 @@
             <form class="login100-form validate-form" action="" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <span class="login100-form-title p-b-55">
-                    Document Submission Info <br> {{ designation }}
+                    {{ designation }}
                 </span>
                 <p style="color:#d33f8d">{{error_message1}}</p>
                 <p style="color:#d33f8d">{{error_message2}}</p><br>

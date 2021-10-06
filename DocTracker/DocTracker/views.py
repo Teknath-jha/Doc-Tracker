@@ -11,7 +11,8 @@ from django.core.mail import EmailMessage
 from collections import OrderedDict
 import datetime 
 from datetime import timedelta
-
+from django.views.decorators.csrf import csrf_exempt 
+from django.contrib.auth.decorators import login_required
 
 config = {
     "apiKey": "AIzaSyC3DKMArlBjbnv2l77aUUsgAi_-bR9bFD8",
@@ -44,20 +45,34 @@ class landingPage(View):
 
     def post(self, request, template_name='landingPage.html'):
         token = request.POST.get('token')
-        try:
-            print("In try of post")
+        billTytpe=request.POST.get('billType')
+
+        if billTytpe=="Bill" : 
             data = database.child('Documents').child(
                 "Bill").child(token).get().val()
+        elif  billTytpe=="Report" : 
+            data = database.child('Documents').child(
+                "Report").child(token).get().val()
+        elif  billTytpe=="Proposal" : 
+            data = database.child('Documents').child(
+                "Proposals").child(token).get().val()
+        else:
+            data = database.child('Documents').child(
+                "Requests").child(token).get().val()
 
-            print(" Fetched ")
+        print(data)
+
+        try:
+            print("In try of post")
             msg = {}
             msg['token'] = token
             od=data
-            
+            print(od)
             status=[]
             x=1
             for val in od.values():
                 s=""
+                
                 for k, v in val.items():
                         # print(k, v)
                         
@@ -101,16 +116,56 @@ class login(View):
     def post(self, request, template_name='login.html'):
         email = request.POST.get('email')
         password = request.POST.get('password')
+        checkMe = email.split('@')[0]
+        checkMe=checkMe[len(checkMe)-2:]
+        print(checkMe)
         try:
-            user = authe.sign_in_with_email_and_password(email, password)
-            print(user)
-            session_id = user['idToken']
-            request.session['uid'] = str(session_id)
-            msg = {}
-            msg['email'] = email
-            msg['session_id'] = session_id
-            msg['local_id'] = user['localId']
-            return render(request, 'firstClerk.html', msg)
+            if checkMe == "k1": 
+                user = authe.sign_in_with_email_and_password(email, password)
+                print(user)
+                session_id = user['idToken']
+                request.session['uid'] = str(session_id)
+                msg = {}
+                msg['designation']="Desk 0 "
+                msg['email'] = email
+                msg['session_id'] = session_id
+                msg['local_id'] = user['localId']
+                return render(request, 'firstClerk.html', msg)
+            elif checkMe == "d1": 
+                user = authe.sign_in_with_email_and_password(email, password)
+                print(user)
+                session_id = user['idToken']
+                request.session['uid'] = str(session_id)
+                msg = {}
+                msg['designation']="Desk 1"
+                msg['email'] = email
+                msg['session_id'] = session_id
+                msg['local_id'] = user['localId']
+                return render(request, 'desk1.html', msg)
+            elif checkMe == "d2": 
+                user = authe.sign_in_with_email_and_password(email, password)
+                print(user)
+                session_id = user['idToken']
+                request.session['uid'] = str(session_id)
+                msg = {}
+                msg['designation']="Desk 2"
+                msg['email'] = email
+                msg['session_id'] = session_id
+                msg['local_id'] = user['localId']
+                return render(request, 'desk2.html', msg)
+            elif checkMe == "d3": 
+                user = authe.sign_in_with_email_and_password(email, password)
+                print(user)
+                session_id = user['idToken']
+                request.session['uid'] = str(session_id)
+                msg = {}
+                msg['designation']="Desk 3"
+                msg['email'] = email
+                msg['session_id'] = session_id
+                msg['local_id'] = user['localId']
+                return render(request, 'desk3.html', msg)
+            else :
+                raise ValueError("That is not a valid User!")
         except:
             err = {}
             err['error_message'] = "Invalid credentials"
@@ -157,10 +212,12 @@ class signup(View):
             err['error_message2'] = "Password length must be atleast 6 ."
             return render(request, template_name, err)
 
-
+# @login_required(login_url="/login/")
 class create(View):
+    
     def get(self, request, template_name='create.html'):
         return render(request, template_name)
+
 
     def post(self, request, template_name='login.html'):
         import time

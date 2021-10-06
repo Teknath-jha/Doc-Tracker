@@ -24,7 +24,17 @@
                    <span class="focus-input100"></span>
                </div> -->
             {% else %}  
+            <div class="wrap-input100 validate-input m-b-16" data-validate="document type is required">
+
+                <select name="billType" class="form-control">
+                    <option selected>Bill</option>
+                    <option>Report</option>
+                    <option >Proposal</option>
+                    <option>Request</option>
+                </select>
+            </div>
             <div class="wrap-input100 validate-input m-b-16"   >
+              
                 <input type="text" class="input100" name="token" placeholder="Token No e.g 121.." >
                 <span class="focus-input100"></span>
             </div>
