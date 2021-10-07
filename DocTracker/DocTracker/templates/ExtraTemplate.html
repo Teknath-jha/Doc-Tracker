@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Doc Tracker{% endblock %}
+{% block content %}
+
+<link href="{%static 'landing_static/css/style.css' %}" rel="stylesheet">
+<link href="{%static 'landing_static/css/style.css' %}" rel="stylesheet">
+
+
+<div class="container d-flex flex-column justify-content-center mt-5">
+    <button type="button" class="btn btn-primary col-sm"
+        style="width:18rem; padding:2rem; margin: 1rem; align-self: center; padding-bottom: 3rem;">Working</button>
+    <button type="button" class="btn btn-primary col-sm"
+        style="width:18rem; padding:2rem; margin: 1rem; align-self: center; padding-bottom: 3rem;">Accepted</button>
+    <button type="button" class="btn btn-primary col-sm"
+        style="width:18rem; padding:2rem; margin: 1rem; align-self: center; padding-bottom: 3rem;">Rejected</button>
+    <button type="button" class="btn btn-primary col-sm"
+        style="width:18rem; padding:2rem; margin: 1rem; align-self: center; padding-bottom: 3rem;">Report</button>
+</div>
+
+{% endblock %}

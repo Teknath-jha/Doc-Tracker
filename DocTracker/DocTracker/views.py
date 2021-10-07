@@ -109,6 +109,11 @@ class about(View):
         return render(request, template_name)
 
 
+class template(View):
+    def get(self, request, template_name='ExtraTemplate.html'):
+        return render(request, template_name)
+
+
 class login(View):
     def get(self, request, template_name='login.html'):
         return render(request, template_name)
