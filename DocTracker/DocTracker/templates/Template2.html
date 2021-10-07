@@ -1,0 +1,35 @@
+{% extends "base.html"%}
+{%load static%}
+{% block title %}About Developers{% endblock %}
+{% block content %}
+
+<link href="{%static 'landing_static/css/style.css' %}" rel="stylesheet">
+<link href="{%static 'landing_static/css/style.css' %}" rel="stylesheet">
+
+
+<div class="container">
+    <div class="d-flex" style="align-items:center;">
+        <div class="row">
+
+            <div class="list-group" id="list-tab" role="tablist">
+                <a class="list-group-item list-group-item-action active" id="list-home-list" href="#" role="tab"
+                    aria-controls="home"
+                    style="width: 27rem; margin:2rem; font-size:1.3rem; margin-left: 6rem; margin-top: 6rem; text-align:center">Token
+                    No. in for loop</a>
+            </div>
+
+        </div>
+        <div class="container d-flex flex-column justify-content-center mt-5">
+            <button type="button" class="btn btn-primary col-sm"
+                style="width:18rem; padding:2rem; margin: 1rem;font-size:1.3rem; align-self: center; padding-bottom: 3rem;">Forward</button>
+            <button type="button" class="btn btn-primary col-sm"
+                style="width:18rem; padding:2rem; margin: 1rem;font-size:1.3rem; align-self: center; padding-bottom: 3rem;">Accept</button>
+            <button type="button" class="btn btn-primary col-sm"
+                style="width:18rem; padding:2rem; margin: 1rem; font-size:1.3rem; align-self: center; padding-bottom: 3rem;">Reject</button>
+            <button type="button" class="btn btn-primary col-sm"
+                style="width:18rem; padding:2rem; margin: 1rem; font-size:1.3rem; align-self: center; padding-bottom: 3rem;">Update</button>
+        </div>
+    </div>
+</div>
+
+{%endblock%}
