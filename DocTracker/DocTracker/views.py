@@ -146,7 +146,7 @@ class login(View):
                 msg['email'] = email
                 msg['session_id'] = session_id
                 msg['local_id'] = user['localId']
-                return render(request, 'desk1.html', msg)
+                return render(request, 'staffLandingPage.html', msg)
             elif checkMe == "d2": 
                 user = authe.sign_in_with_email_and_password(email, password)
                 print(user)
