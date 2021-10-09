@@ -1,0 +1,80 @@
+{% extends "base.html"%}
+{%load static%}
+{% block title %}About Developers{% endblock %}
+{% block content %}
+
+<link href="{%static 'landing_static/css/style.css' %}" rel="stylesheet">
+<link href="{%static 'landing_static/css/style.css' %}" rel="stylesheet">
+
+
+<div class="container">
+    <form action="" method="post">
+        {% csrf_token %}
+    <div class="d-flex" style="align-items:center;">
+        
+        <div class="row">
+
+            <!-- <div class="list-group" id="list-tab" role="tablist">
+                <a class="list-group-item list-group-item-action active" id="list-home-list" href="#" role="tab"
+                    aria-controls="home"
+                    style="width: 27rem; margin:2rem; font-size:1.3rem; margin-left: 6rem; margin-top: 6rem; text-align:center">Token
+                    No. in for loop</a>
+            </div> -->
+            Token No.
+            <div class="wrap-input100 validate-input m-b-16"   >
+              
+                <input type="text" class="input100  input-group-text" name="token" placeholder="Token No e.g 121.." >
+                <span class="focus-input100"></span>
+            </div>
+            Enter message for client
+            <div class="wrap-input100 validate-input m-b-16  input-group-text"   >
+              
+                <textarea type="text" class="input100" rows="4" cols="50" name="message" placeholder="Token No e.g 121.." ></textarea>
+                <span class="focus-input100"></span>
+            </div>
+            <div class="form-check form-switch m-b-16"  >
+                <input class="form-check-input"   style="width:40px; height:40px; transform : scale(1); border-radius: 50%;"    type="radio" name="decision" value="accept">
+                <label class="form-check-label" >Accept</label>
+              </div> 
+
+              <div class="form-check form-switch"  >
+                <!-- <input class="form-check-input"   style="width:40px; height:40px; transform : scale(1); border-radius: 50%;"    type="checkbox" > -->
+                <label class="form-check-label" ></label>
+              </div> 
+
+              <div class="form-check form-switch"  >
+                <input class="form-check-input"   style="width:40px; height:40px; transform : scale(1); border-radius: 50%;"    type="radio" name="decision" value="reject">
+                <label class="form-check-label" >Reject</label>
+              </div>
+
+              <!-- <div class="form-check form-switch"  >
+                <input class="form-check-input"   style="width:40px; height:40px; transform : scale(1); border-radius: 50%;"    type="checkbox" >
+                <label class="form-check-label" >Accept</label>
+              </div> -->
+
+              <br><br><br><br>
+  <button class="btn btn-primary btn-lg btn-block" type="submit" name="submit">Submit</button>
+        </div>
+        <div class="container d-flex flex-column justify-content-center mt-5">
+            <!-- <div class="form-check form-switch"  >
+                <input class="form-check-input"   style="width:40px; height:40px; transform : scale(1.5); border-radius: 50%;"    type="checkbox" >
+                <label class="form-check-label" >Accept</label>
+              </div> -->
+            <!-- <button type="checkbox" class="btn btn-primary col-sm"
+                style="width:18rem; padding:2rem; margin: 1rem;font-size:1.3rem; align-self: center; padding-bottom: 3rem;">Forward</button> -->
+           {% if msg1 %}
+           <button type="checkbox" class="btn btn-primary col-sm"
+           style="width:18rem; padding:2rem; margin: 1rem;font-size:1.3rem; align-self: center; padding-bottom: 3rem;">{{saveToDB}}</button>
+       <button type="checkbox" class="btn btn-primary col-sm"
+           style="width:18rem; padding:2rem; margin: 1rem; font-size:1.3rem; align-self: center; padding-bottom: 3rem;">{{token}}</button>
+
+           <button type="checkbox" class="btn btn-primary col-sm"
+           style="width:18rem; padding:2rem; margin: 1rem; font-size:1.3rem; align-self: center; padding-bottom: 3rem;">{{status}}</button>
+
+           {% endif %}
+        </div>
+   
+    </div> </form>
+</div>
+
+{%endblock%}

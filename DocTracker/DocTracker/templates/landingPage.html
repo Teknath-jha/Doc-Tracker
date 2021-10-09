@@ -26,8 +26,9 @@
             {% else %}  
             <div class="wrap-input100 validate-input m-b-16" data-validate="document type is required">
 
-                <select name="billType" class="form-control">
-                    <option selected>Bill</option>
+                <select name="billType" class="form-select input100" required>
+                    <option selected disabled>Select your DOCUMENT type </option>
+                    <option >Bill</option>
                     <option>Report</option>
                     <option >Proposal</option>
                     <option>Request</option>
@@ -40,8 +41,9 @@
             </div>
             {% endif %}  
             {% for data in status %}  
-            <div class="wrap-input100 validate-input m-b-16" >
+            <div class="wrap-input100 "  >
              <h3    class="input100" >{{data}}    </h3>
+             <hr>
               
             {%  endfor %}
 <br>
