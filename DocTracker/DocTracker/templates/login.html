@@ -14,7 +14,6 @@
     </script>
     {% endif %}
 
-    <br><br>
     <!-- {% if loggedOut %}
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
         <strong> Logged Out !</strong>
@@ -24,8 +23,8 @@
     </div>
     {% endif %} -->
     
-    <div class="container-login100">
-        <div class="wrap-login100 p-l-50 p-r-50 p-t-77 p-b-30">
+    <div class="container-login100" style="position: fixed;">
+        <div class="wrap-login100 p-l-50 p-r-50 p-t-65 p-b-30" style="margin-top: -100px;">
             <form class="login100-form validate-form" action="/firstClerk/" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <span class="login100-form-title p-b-55">

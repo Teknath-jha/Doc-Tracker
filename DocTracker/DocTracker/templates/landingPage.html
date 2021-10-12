@@ -13,7 +13,7 @@
     <h1>Track Your Document</h1>
     <form action="" method="post">
         {% csrf_token %}
-        <div class="input-group mb-3">
+        <div class="input-group mb-3" style="justify-content: center;">
         
             {% if token %} 
             <div class="wrap-input50  m-b-6" >
@@ -41,12 +41,12 @@
             </div>
             {% endif %}  
             {% for data in status %}  
-            <div class="wrap-input100 "  >
+            <div class="wrap-input100"  >
              <h3    class="input100" >{{data}}    </h3>
              <hr>
               
             {%  endfor %}
-<br>
+
 {% if not  token %} 
         <button class="btn btn-primary btn-lg btn-block" type="submit" name="submit">Submit</button>
         {% endif %}
