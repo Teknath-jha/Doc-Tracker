@@ -6,25 +6,25 @@
 <link href="{%static 'landing_static/css/style.css' %}" rel="stylesheet">
 <link href="{%static 'landing_static/css/style.css' %}" rel="stylesheet">
 
-<div class="centerdata container">
+<div class="container" style="margin-top:2rem;">
     {% if err %}
     <h1>{{error_message}}</h1>
     {% endif %}
-    <h1>Track Your Document</h1>
+    <h1 style="text-align:center;">Track Your Document</h1>
     <form action="" method="post">
         {% csrf_token %}
-        <div class="input-group mb-3" style="justify-content: center;">
+        <div class="input-group mb-3" style="justify-content: center; margin:auto;">
         
             {% if token %} 
-            <div class="wrap-input50  m-b-6" >
-                <h1    class="input100" style="font-family:'Oswald' ; font-size:60px; text-align:left; font-weight:bold"><strong>{{token}}</strong>    </h1>
+            <div class="wrap-input50  m-b-6" style="margin-top:2rem;">
+                <h1    class="input100" style="font-family:'Oswald' ; font-size:60px; text-align:left; font-weight:bold; border:2px solid;padding-bottom:4rem"><strong>{{token}}</strong>    </h1>
                    <span class="focus-input100"></span>
                </div>
                <!-- <h1    class="input100" style="font-family:'Oswald' ; font-size:20px"> <strong>Refresh</strong>   </h1>
                    <span class="focus-input100"></span>
                </div> -->
             {% else %}  
-            <div class="wrap-input100 validate-input m-b-16" data-validate="document type is required">
+            <div class="wrap-input100 validate-input m-b-16" style="margin-top:2rem;" data-validate="document type is required">
 
                 <select name="billType" class="form-select input100" required>
                     <option selected disabled>Select your DOCUMENT type </option>
@@ -41,8 +41,8 @@
             </div>
             {% endif %}  
             {% for data in status %}  
-            <div class="wrap-input100"  >
-             <h3    class="input100" >{{data}}    </h3>
+            
+             <h3  style="text-align:center; border:2px solid ; padding-top:1rem; margin-top:2px;"  class="input100" >{{data}}    </h3>
              <hr>
               
             {%  endfor %}
@@ -59,4 +59,5 @@
 
     <!-- {% endfor %} -->
 </div>
+
 {% endblock %}
