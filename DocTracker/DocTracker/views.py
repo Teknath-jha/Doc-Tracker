@@ -44,6 +44,7 @@ class landingPage(View):
             message['message'] = 'nothing'
         return render(request, template_name)
 
+    # fetch status of document 
     def post(self, request, template_name='landingPage.html'):
         token = request.POST.get('token')
         billTytpe = request.POST.get('billType')
@@ -270,7 +271,7 @@ class StaffCommonPage(View):
     def get(self, request, template_name='staffLandingPage.html'):
         return render(request, template_name)
 
-
+# login for all staff common class
 class login(View):
     def get(self, request, template_name='login.html'):
         return render(request, template_name)
@@ -351,12 +352,6 @@ class signup(View):
         phoneNumber = request.POST.get('phoneNumber')
         email = request.POST.get('email')
         password = request.POST.get('password')
-        # confPassword = request.POST.get('conf_password')
-
-        # if password != confPassword:
-        #     err = {'error_message': "Password don't match. Please Try Again."}
-
-        #     return render(request, 'signup.html', err)
 
         try:
             user = authe.create_user_with_email_and_password(email, password)
