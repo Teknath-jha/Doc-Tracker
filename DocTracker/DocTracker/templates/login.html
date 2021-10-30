@@ -28,10 +28,10 @@
             <form class="login100-form validate-form" action="/firstClerk/" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <span class="login100-form-title p-b-55">
-                    Login <p style="color:#d33f8d"><a href="{% url 'login' %}">{{error_message}}{{loggedOut}}</a></p>
+                    Login <p style="color:#d33f8d; margin-top:1rem;" ><b><a href="{% url 'login' %}">{{error_message}}{{loggedOut}}</a></b></p>
                 </span>
 
-                <div class="wrap-input100 validate-input m-b-16" data-validate="Valid email is required: ex@abc.xyz">
+                <div class="wrap-input100 validate-input m-b-16" style="border: 2px solid #d33f8d;" data-validate="Valid email is required: ex@abc.xyz">
                     <input class="input100" type="email" name="email" placeholder="Email">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
@@ -39,7 +39,7 @@
                     </span>
                 </div>
   
-                <div class="wrap-input100 validate-input m-b-16" data-validate="Password is required">
+                <div class="wrap-input100 validate-input m-b-16" style="border: 2px solid #d33f8d;" data-validate="Password is required">
                     <input class="input100" type="password" name="password" placeholder="Password">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
