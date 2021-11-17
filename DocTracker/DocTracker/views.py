@@ -178,11 +178,35 @@ class StaffWork(View):
                 print("line 153")
                 
                 print("CheckDept : "+checkDept)
-                print(checkDept)
+                
                 # token=int(token)
                 print("line 163")
                 msg1["savedToDB"]="Not yet"
                 flag= False
+
+                # idtoken = request.session['uid']
+                # a = authe.get_account_info(idtoken)
+                # a = a['users']
+                # a = a[0]
+                
+                # a = a['localId']
+
+                try:
+                    tz = pytz.timezone('Asia/Kolkata')
+                    time_now = datetime.now(timezone.utc).astimezone(tz)
+                    millis = int(time.mktime(time_now.timetuple()))
+                    staffData={}
+                    staffData["docType"]=checkDept
+                    staffData["docOwner"]=ownerEmail
+                    staffData["docToken"]=token
+                    staffData["date"] = millis
+                    rootEmail=staffEmail.replace(".","")
+                    database.child("staffData").child("mails").child(rootEmail).push(staffData)
+                    
+                except :
+                    print("error in staffData")
+
+
                 if checkDept == "bill" and docType=="Bill":
                     print("Bill")
                     fToken = database.child(
@@ -191,6 +215,7 @@ class StaffWork(View):
                     database.child('Documents').child("Bill").child(
                         token).push(data)
                     msg1["savedToDB"]="Yes saved to Bill"
+
                     print("Bill  ok ")
                     flag = True
                 elif checkDept == "report" and docType=="Report":
@@ -393,7 +418,7 @@ class create(View):
             print("132")
             billCode = request.POST['billType']
 
-            print("line 131")
+            print("line 404")
             print(billCode)
             msg1 = {}
             msg1['email'] = email
@@ -407,7 +432,7 @@ class create(View):
             clerkEmail = a['email']
             # clerkName=a['First_name']
             a = a['localId']
-            print("line 142")
+            print("line 418")
             # msg1['local_id'] = a['localId']
             print(str(a))
             data = {
@@ -421,6 +446,7 @@ class create(View):
             print("line 150")
             database.child('users').child(a).child(
                 'reports').child(millis).set(data)
+          
             data1 = {
                 "By": clerkEmail,
                 "at": millis,
