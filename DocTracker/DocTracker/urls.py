@@ -30,6 +30,7 @@ urlpatterns = [
     path('desk2/',views.login.as_view(),name="desk2"),
     path('desk3/',views.login.as_view(),name="desk3"),
     path('create/',views.create.as_view(),name="create"),
+    path('report/',views.report.as_view(),name="report"),
 ]
 
 

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Report{% endblock %}
+{% block content %}
+
+<link href="{%static 'landing_static/css/style.css' %}" rel="stylesheet">
+<link href="{%static 'landing_static/css/style.css' %}" rel="stylesheet">
+
+<div class="container" style="margin-top:2rem;">
+    {% if status %}
+    {% for data in status %}
+
+    <h3 style="text-align:center; border:2px solid ; padding-top:1rem; margin-top:2px;" class="input100">{{data}} </h3>
+    <hr>
+
+    {% endfor %}
+
+    {% else %}
+    <h1 style="text-align:center;">No report</h1>
+
+    {% endif %}
+</div>
+
+
+</div>
+
+{% endblock %}

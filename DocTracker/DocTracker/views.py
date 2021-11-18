@@ -111,6 +111,46 @@ class about(View):
     def get(self, request, template_name='about.html'):
         return render(request, template_name)
 
+# Staff report generating 
+class report(View):
+    def get(self, request, template_name='landingPage.html'):
+        return render(request, template_name)
+
+     # fetch report of user  
+    # def post(self, request, template_name='report.html'):
+    def post(self, request, template_name='report.html'):
+        print("122")
+        staffEmail = request.POST.get('staffEmail')
+        print(staffEmail)
+        staffEmailModified= staffEmail.replace(".","")
+        
+        data = database.child('staffData').child(
+                "mails").child(staffEmailModified).get().val()
+        
+
+        print(data)
+        print("129")
+
+        try:
+            print("In try of report  post")
+            msg = {}
+            od = data
+            print(od)
+            status = []
+            x = 1
+            for val in od.values():
+                status.append(val)
+                print(val)
+
+            msg['status'] = status
+            # status.clear()
+            return render(request, 'report.html', msg)
+        except:
+            msg = {}
+            msg['error'] = "Error in fetching report"
+            # msg['error_message'] = "Failed fetch"
+            return render(request, template_name, msg)
+
 
 class StaffWork(View):
     def get(self, request, template_name='staffWork.html'):
