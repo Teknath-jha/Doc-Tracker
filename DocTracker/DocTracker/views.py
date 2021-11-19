@@ -253,20 +253,19 @@ class StaffWork(View):
                 print(staffEmail)
 
                 a = a['localId']
-                print("line 140")
                 
-                print("line 147")
+                print("line 258")
                 data = {
                     "By": message,
                     "at": int(time.mktime(time_now.timetuple()))
                 }
                 # teknathk1@gmail.com     teknath
-                print("line 153")
+                print("line 264")
                 
                 print("CheckDept : "+checkDept)
                 
                 # token=int(token)
-                print("line 163")
+                print("line 269")
                 msg1["savedToDB"]="Not yet"
                 flag= False
 
@@ -279,12 +278,22 @@ class StaffWork(View):
 
                 try:
                     print("In try of 273")
-                    tz = pytz.timezone('Asia/Kolkata')
-                    time_now = datetime.now(timezone.utc).astimezone(tz)
-                    millis = int(time.mktime(time_now.timetuple()))
+                   
                     staffData={}
+        
+                    from datetime import datetime
+
+                    # datetime object containing current date and time
+                    now = datetime.now()
+                    
+                    print("now =", now)
+
+                    # dd/mm/YY H:M:S
+                    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+                    print("date and time =", dt_string)	
+                                
                     staffData["docToken"]=token
-                    staffData["date"] = millis
+                    staffData["date"] =dt_string
                     rootEmail=staffEmail.replace(".","")
                     database.child("staffData").child("mails").child(rootEmail).push(staffData)
                     
@@ -352,7 +361,7 @@ class StaffWork(View):
 
                     )
 
-                # print("--------Sent--------")
+                    print("--------Sent--------")
                 msg1["status"]="Accepted previous doc"
                 return render(request, template_name,msg1)
             else:
