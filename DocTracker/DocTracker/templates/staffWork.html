@@ -28,10 +28,10 @@
                 <input type="text" class="input100  input-group-text" name="token" placeholder="Token No e.g 121.." >
                 <span class="focus-input100"></span>
             </div>
-            Enter message for client
+            Reason for acceptance/rejection
             <div class="wrap-input100 validate-input m-b-16  input-group-text"   >
               
-                <textarea type="text" class="input100 input-group-text" rows="4" cols="50" name="message" placeholder="Token No e.g 121.." ></textarea>
+                <textarea type="text" class="input100 input-group-text" rows="4" cols="50" name="message" placeholder="reason.." ></textarea>
                 <span class="focus-input100"></span>
             </div>
             <div class="form-check form-switch m-b-16"  >
@@ -50,21 +50,13 @@
                 <label class="form-check-label" >Reject</label>
               </div>
 
-              <!-- <div class="form-check form-switch"  >
-                <input class="form-check-input"   style="width:40px; height:40px; transform : scale(1); border-radius: 50%;"    type="checkbox" >
-                <label class="form-check-label" >Accept</label>
-              </div> -->
+              
 
               <br><br><br><br>
   <button class="btn btn-primary btn-lg btn-block" type="submit" name="submit">Submit</button>
         </div>
        
-            <!-- <div class="form-check form-switch"  >
-                <input class="form-check-input"   style="width:40px; height:40px; transform : scale(1.5); border-radius: 50%;"    type="checkbox" >
-                <label class="form-check-label" >Accept</label>
-              </div> -->
-            <!-- <button type="checkbox" class="btn btn-primary col-sm"
-                style="width:18rem; padding:2rem; margin: 1rem;font-size:1.3rem; align-self: center; padding-bottom: 3rem;">Forward</button> -->
+           
            {% if msg1 %}
            <button type="checkbox" class="btn btn-primary col-sm"
            style="width:18rem; padding:2rem; margin: 1rem;font-size:1.3rem; align-self: center; padding-bottom: 3rem;">{{saveToDB}}</button>

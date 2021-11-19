@@ -15,6 +15,14 @@ from datetime import timedelta
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 
+# for report 
+from django.http import FileResponse
+import io
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import inch
+from reportlab.lib.pagesizes import letter
+
+
 config = {
     "apiKey": "AIzaSyC3DKMArlBjbnv2l77aUUsgAi_-bR9bFD8",
     "authDomain": "wce-doc-tracker.firebaseapp.com",
@@ -127,26 +135,63 @@ class report(View):
         data = database.child('staffData').child(
                 "mails").child(staffEmailModified).get().val()
         
+        buf = io.BytesIO()
+        c = canvas.Canvas(buf , pagesize=letter,bottomup=0)
 
+        textob = c.beginText()
+        textob.setTextOrigin(inch , inch)
+        textob.setFont("Helvetica-Bold" , 20)
+        textob.textLine("           Report of "+str(staffEmail))
+        textob.textLine("")
+        textob.setFont("Helvetica" , 14)
         print(data)
-        print("129")
-
+        print("146")
+        msg = {}
         try:
             print("In try of report  post")
-            msg = {}
+            
             od = data
-            print(od)
+            lines=[]
+            # print(od)
             status = []
-            x = 1
+            print(lines)
+
             for val in od.values():
                 status.append(val)
-                print(val)
+                # print(type(val))
+                lines.append(val)
+            print("159")
+            # lines=[
+            #     "I am here 1",
+            #     "I am here 2",
+            #     "I am here 3"
+            # ]
+            counter=1
+            for line in lines:
+                temp=str(line)
+                temp=temp[1:-1]
+                textob.textLine(str(counter)+")        "+temp)
+                textob.textLine()
+                counter+=1
+
+            textob.textLine("                       --------------------X--------------------")
+            print("162")    
 
             msg['status'] = status
             # status.clear()
-            return render(request, 'report.html', msg)
+
+            c.drawText(textob)
+            c.showPage()
+            c.save()
+            buf.seek(0)
+
+
+            # return render(request, 'report.html', msg)
+            print("170")
+            return FileResponse(buf , as_attachment=True , filename="report.pdf")
+
         except:
-            msg = {}
+            
             msg['error'] = "Error in fetching report"
             # msg['error_message'] = "Failed fetch"
             return render(request, template_name, msg)
@@ -196,22 +241,23 @@ class StaffWork(View):
             print(token)
             print(message)
             print(decision)
+            import time
+            from datetime import datetime, timezone
+            import pytz
+            print("line 144")
+            tz = pytz.timezone('Asia/Kolkata')
+            time_now = datetime.now(timezone.utc).astimezone(tz)
             if decision == "accept":
                 
-                
+                message=str(staffEmail)+" -> "+message+" -> [ ACCEPTED ]"
                 print(staffEmail)
 
                 a = a['localId']
                 print("line 140")
-                import time
-                from datetime import datetime, timezone
-                import pytz
-                print("line 144")
-                tz = pytz.timezone('Asia/Kolkata')
-                time_now = datetime.now(timezone.utc).astimezone(tz)
+                
                 print("line 147")
                 data = {
-                    "By": staffEmail,
+                    "By": message,
                     "at": int(time.mktime(time_now.timetuple()))
                 }
                 # teknathk1@gmail.com     teknath
@@ -232,12 +278,11 @@ class StaffWork(View):
                 # a = a['localId']
 
                 try:
+                    print("In try of 273")
                     tz = pytz.timezone('Asia/Kolkata')
                     time_now = datetime.now(timezone.utc).astimezone(tz)
                     millis = int(time.mktime(time_now.timetuple()))
                     staffData={}
-                    staffData["docType"]=checkDept
-                    staffData["docOwner"]=ownerEmail
                     staffData["docToken"]=token
                     staffData["date"] = millis
                     rootEmail=staffEmail.replace(".","")
@@ -289,10 +334,10 @@ class StaffWork(View):
                     print("Proposal  ok ")
                     flag = True
                 else:
-                    msg1["savedToDB"]="No failed | Acses from wrong account  | Token not exists ."
+                    msg1["savedToDB"]="Failed | Acses from wrong account  | Token not exists ."
                     print("Fail to push /  token not exists")
 
-                print("***Udated Status  ->  "+token)
+                print("***Status Updated   ->  "+token)
 
                 if message  and flag:
                     message = 'From WCE Doc Tracker . \n Token No. ' + \
@@ -311,10 +356,39 @@ class StaffWork(View):
                 msg1["status"]="Accepted previous doc"
                 return render(request, template_name,msg1)
             else:
+                message=str(staffEmail)+" -> "+message+" -> [ REJECTED ]"
+                data = {
+                    "By": message,
+                    "at": int(time.mktime(time_now.timetuple()))
+                }
+                if checkDept == "bill" and docType=="Bill":
+                    database.child('Documents').child("Bill").child(
+                        token).push(data)
+                elif checkDept == "report" and docType=="Report":
+                    database.child('Documents').child("Report").child(
+                        token).push(data)
+                    flag = True
+                elif checkDept == "request"  and docType=="Request":
+                    
+                    database.child('Documents').child("Requests").child(
+                        token).push(data)
+                    flag = True
+                elif checkDept == "proposal" and docType=="Proposal":
+                    database.child('Documents').child("Proposals").child(
+                        token).push(data)
+                    flag = True
+                else:
+                    msg1["savedToDB"]="Failed | Acses from wrong account  | Token not exists ."
+                    print("Fail to push /  token not exists")
+
+                print("***Status Updated   ->  "+token)
+                
                 msg1["status"]="Rejected previous doc"
                 message = 'From WCE Doc Tracker . \n Token No. ' + \
                     str(token) + '\n'+message+' from ' + staffEmail+ '\n' + " STATUS : Rejected "
                 print(message)
+
+
                 send_mail(
                     'WCE Doc Tracker ',
                     message,

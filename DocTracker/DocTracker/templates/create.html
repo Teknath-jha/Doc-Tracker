@@ -9,54 +9,13 @@
 
 <!-- -------------------@ POST LOGIN-------------------------- -->
 
-    <!-- <div class="container float-right">
-        <br><br><br><br>
-        <div class=" d-flex flex-row row mx-px-auto">
-            <div class='col-md-4'>
-                <div class='our-team' style="width: 18rem; border-radius: 5rem;">
-                    <div class='picture'><img class='img-fluid' style='max-width: 130px; height:130px ;'
-                            src="{% static 'images/staff.png' %}">
-                    </div>
-                    <div class='team-content'>
-                        <h3 class='name'>Logged In As <strong> {{MeraMsg}}</strong></h3>
-                        <h4 class='title' style='margin-bottom:30px;'>Staff Name </h4>
-                        <p class='fw-light' style=> Hi </p>
-                        <h4 class='title' style='line-height:25px ;margin-bottom:20px'><strong>{{name}}</strong></h4>
-                    </div>
-                    <a class="btn btn-primary" href="{% url 'logout' %}">
-                        Logout
-                    </a>
-                </div>
-                {% if msg %}
-                <div class=" d-flex flex-row row mx-px-auto">
-                    <div class='col-md-4'>
 
-                        <div class='our-team' style="width: 18rem; border-radius: 5rem;">
-                            <div class='team-content'>
-                                <h3 class='name'>Name <strong> {{name}}</strong></h3>
-                                <h3 class='name'>Email <strong> {{email}}</strong></h3>
-                                <h3 class='name'>Contact <strong> {{phoneNumber}}</strong></h3>
-                                <h3 class='name'>LocalId <strong> {{local_id}}</strong></h3>
-                                <h4 class='title' style='margin-bottom:30px;'>Ok</h4>
-                                <p class='fw-light' style=> Hi </p>
-                                <h4 class='title' style='line-height:25px ;margin-bottom:20px'><strong>{{name}}</strong>
-                                </h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-</div> -->
-
-<br><br><br><br><br><br>
 <div class="limiter">
     <div class="container-login100">
         <div class="wrap-login100 p-l-50 p-r-50 p-t-77 p-b-30">
-            <h1>Add a doc</h1>
-
+            <span class="login100-form-title p-b-5">
+            <h1 style="text-align:center;"><bold>Add a doc</bold></h1>
+        </span>
 
 
             <form class="login100-form validate-form" action="" method="post" enctype="multipart/form-data">
@@ -113,6 +72,6 @@
             </form>
         </div>
     </div>
+</div><br><br>
 </div>
-</div><br><br><br>
 {%endblock%}
