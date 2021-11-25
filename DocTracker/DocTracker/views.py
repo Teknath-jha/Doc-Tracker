@@ -79,10 +79,17 @@ class landingPage(View):
             od = data
             print(od)
             status = []
+            
+            d1="d1"
+            d2="d2"
+            d3="d3"
+            d1error="d1error"
+            d2error="d2error"
+            d3error="d3error"
+            clerk="clerk"
             x = 1
             for val in od.values():
                 s = ""
-
                 for k, v in val.items():
                     # print(k, v)
 
@@ -98,18 +105,66 @@ class landingPage(View):
                     else:
                         msg[k] = v
                         print(k, v)
+                        try:
+                            if v.find("clerk")!=-1 :
+                            # progress.append(d1)
+                                msg['clerk']=clerk
+                            if v.find("d1")!=-1 and v.find("ACCEPTED")!=-1:
+                            # progress.append(d1)
+                                msg['d1']=d1
+                                msg.pop('d1error')
+                            if v.find("d2")!=-1 and v.find("ACCEPTED")!=-1:
+                                # progress.append(d2)
+                                msg['d2']=d2
+                                msg.pop('d2error')
+                                # msg.pop('d1')
+                            if v.find("d3")!=-1 and v.find("ACCEPTED")!=-1:
+                                # progress.append(d3)
+                                msg['d3']=d3
+                                # msg.pop('d1')
+                                # msg.pop('d2')
+                                msg.pop('d3error')
+                            
+                            if v.find("d1")!=-1 and v.find("REJECTED")!=-1:
+                            # progress.append(d1)
+                                if(msg.get('d1')):
+                                    pass
+                                else :
+                                    msg['d1error']=d1error
+                            if v.find("d2")!=-1 and v.find("REJECTED")!=-1:
+                                # progress.append(d2)
+                                if(msg.get('d1')):
+                                    pass
+                                else :
+                                    msg['d2error']=d2error
+
+                                # msg.pop('d1')
+                            if v.find("d3")!=-1 and v.find("REJECTED")!=-1:
+                                # progress.append(d3)
+                                if(msg.get('d1')):
+                                    pass
+                                else :
+                                    msg['d3error']=d3error
+                                # msg.pop('d1')
+                                # msg.pop('d2')
+                        except:
+                            pass
+                        
                         # status.append(v)
                         s = s+str(v) + " at  "
                         print("-=-=-=-=-=-=-=-=-=-")
                     x = x+1
                 status.append(s)
                 print(s)
+            print("121")
 
             msg['status'] = status
+            print("Teknath jha")
+            print(msg)
             # status.clear()
             return render(request, 'landingPage.html', msg)
         except:
-            msg = {}
+            # msg = {}
             msg['token'] = token
             # msg['error_message'] = "Failed fetch"
             return render(request, template_name, msg)
@@ -579,7 +634,7 @@ class create(View):
             # print(billCode )
             if billCode == "Bill":
                 database.child('Documents').child("Bill").child(
-                    millis).child("data").push(data1)
+                    millis).push(data1)
                 print("Bill")
             elif billCode == "Report":
                 database.child('Documents').child(
