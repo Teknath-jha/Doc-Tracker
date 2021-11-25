@@ -15,19 +15,19 @@
         {% csrf_token %}
         <div class="input-group mb-3" style="justify-content: center; margin:auto;">
 
-            {% if token %}
+            {% if token or notExists %}
             <!--Progress bar   -->
             {% if clerk and d1 and d2 and d3 %}
-            <h3>processes completed</h3>
-            {% endif %}
-            {% if clerk and d1  %}
+            <h3 style="color:green;">Processes completed</h3>
+            
+            {% elif clerk and d1 and d2 %}
+            <h3>25% remaining estimated time 1 days </h3>
+            
+            {% elif clerk and d1  %}
             <h3>50% remaining estimated time 2 days </h3>
-            {% endif %}
-            {% if clerk and d1 and d2 %}
-            <h3>75% remaining estimated time 1 days </h3>
-            {% endif %}
-            {% if clerk and d1 and d2 and d3 %}
-            <h3>processes completed</h3>
+            
+            {% elif clerk  %}
+            <h3>75% remaining estimated time 3 days </h3>
             {% endif %}
             <div class="progress" style="width: 1000rem; height: 5rem;">
                 {% if clerk %}
@@ -116,8 +116,8 @@
                 {% endif %}
             
             </div>
-       
-            <br><br>
+           <br>
+            <br>
 
 <!-- 
             <div class="progress">
@@ -127,13 +127,31 @@
               </div> 
             -->
 
-
-            <div class="wrap-input50  m-b-6" style="margin-top:2rem;">
-                <h1 class="input100"
-                    style="font-family:'Oswald' ; font-size:60px; text-align:left; font-weight:bold; border:2px solid;padding-bottom:4rem">
-                    <strong>{{token}}</strong>
-                </h1>
-                <span class="focus-input100"></span>
+            <div class="d-flex flex-column">
+                <div class="div">
+                    <i>For better , see logs | if any doc requirement then fullfill it first </i>
+                </div>
+                {% if notExists %}
+                <div class="div">
+                    <div class="wrap-input50  m-b-6" style="margin-top:2rem;">
+                        <h1 class="input100"
+                            style="font-family:'Oswald' ; font-size:60px; text-align:left; font-weight:bold; border:2px solid;padding-bottom:4rem">
+                            <strong>{{notExists}}</strong>
+                        </h1>
+                        <span class="focus-input100"></span>
+                    </div>
+                </div>
+                {% else %}
+                <div class="div">
+                    <div class="wrap-input50  m-b-6" style="margin-top:2rem;">
+                        <h1 class="input100"
+                            style="font-family:'Oswald' ; font-size:60px; text-align:left; font-weight:bold; border:2px solid;padding-bottom:4rem">
+                            <strong>{{token}}</strong>
+                        </h1>
+                        <span class="focus-input100"></span>
+                    </div>
+                </div>
+                {% endif %}
             </div>
 
             <!-- <h1    class="input100" style="font-family:'Oswald' ; font-size:20px"> <strong>Refresh</strong>   </h1>

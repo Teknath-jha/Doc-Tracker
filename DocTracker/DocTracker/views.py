@@ -55,15 +55,49 @@ class landingPage(View):
     # fetch status of document 
     def post(self, request, template_name='landingPage.html'):
         token = request.POST.get('token')
-        billTytpe = request.POST.get('billType')
+        billType = request.POST.get('billType')
 
-        if billTytpe == "Bill":
+        ids = database.child("ids").child(billType).get().val()
+        flag=False
+        tempToken = token
+        tempVar=12
+        for id in ids.values() :
+            for m,u in id.items():
+                print("*********************************************************************************************")
+                print(u)
+                print(m)
+                print("*********************************************************************************************")
+                
+                if m=="Mtoken":
+                    tempVar=u
+                
+                if m=="Utoken" and u== token:
+                    token=tempVar
+                    print("***************************Got the token********************************")
+                    print(token)
+                    flag=True
+                    break
+            if flag:
+                break
+        
+        # token invalid 
+        if flag==False :
+            msg={}
+            msg['notExists']="Token invalid"
+            return render(request, template_name, msg)
+        
+        print("Passed tokenization")
+        print(ids)
+
+
+
+        if billType == "Bill":
             data = database.child('Documents').child(
                 "Bill").child(token).get().val()
-        elif billTytpe == "Report":
+        elif billType == "Report":
             data = database.child('Documents').child(
                 "Report").child(token).get().val()
-        elif billTytpe == "Proposal":
+        elif billType == "Proposal":
             data = database.child('Documents').child(
                 "Proposals").child(token).get().val()
         else:
@@ -75,7 +109,7 @@ class landingPage(View):
         try:
             print("In try of post")
             msg = {}
-            msg['token'] = token
+            msg['token'] = tempToken
             od = data
             print(od)
             status = []
@@ -141,7 +175,7 @@ class landingPage(View):
                                 # msg.pop('d1')
                             if v.find("d3")!=-1 and v.find("REJECTED")!=-1:
                                 # progress.append(d3)
-                                if(msg.get('d1')):
+                                if(msg.get('d3')):
                                     pass
                                 else :
                                     msg['d3error']=d3error
@@ -165,7 +199,7 @@ class landingPage(View):
             return render(request, 'landingPage.html', msg)
         except:
             # msg = {}
-            msg['token'] = token
+            msg['token'] = tempToken
             # msg['error_message'] = "Failed fetch"
             return render(request, template_name, msg)
 
@@ -260,9 +294,45 @@ class StaffWork(View):
         print(" Inside staffWork post ")
 
         token = request.POST.get('token')
+
+        # Transformation of token
+
+        billType = token.split('#')[0]
+        
+        ids = database.child("ids").child(billType).get().val()
+        flag=False
+        tempToken = token
+        tempVar=12
+        for id in ids.values() :
+            for m,u in id.items():
+                if m=="Mtoken":
+                    tempVar=u
+                
+                if m=="Utoken" and u== token:
+                    token=tempVar
+                    print("***************************Got the token********************************")
+                    print(token)
+                    flag=True
+                    break
+            if flag:
+                break
+        
+        # token invalid 
+        if flag==False :
+            msg={}
+            msg['notExists']="Token invalid"
+            return render(request, template_name, msg)
+        
+        print("Passed tokenization")
+        print(token)
+        print(ids)
+
+        # # Transformation of token
+
         ownerEmail = database.child('Documents').child(
             "Owner").child(token).get().val()
         print(ownerEmail)
+
         od = ownerEmail
         tempEmail = ""
         docType = ""
@@ -299,7 +369,7 @@ class StaffWork(View):
             import time
             from datetime import datetime, timezone
             import pytz
-            print("line 144")
+            print("line 375")
             tz = pytz.timezone('Asia/Kolkata')
             time_now = datetime.now(timezone.utc).astimezone(tz)
             if decision == "accept":
@@ -309,18 +379,18 @@ class StaffWork(View):
 
                 a = a['localId']
                 
-                print("line 258")
+                print("line 385")
                 data = {
                     "By": message,
                     "at": int(time.mktime(time_now.timetuple()))
                 }
                 # teknathk1@gmail.com     teknath
-                print("line 264")
+                print("line 391")
                 
                 print("CheckDept : "+checkDept)
                 
                 # token=int(token)
-                print("line 269")
+                print("line 396")
                 msg1["savedToDB"]="Not yet"
                 flag= False
 
@@ -332,7 +402,7 @@ class StaffWork(View):
                 # a = a['localId']
 
                 try:
-                    print("In try of 273")
+                    print("In try of 408")
                    
                     staffData={}
         
@@ -351,7 +421,7 @@ class StaffWork(View):
                     staffData["date"] =dt_string
                     rootEmail=staffEmail.replace(".","")
                     database.child("staffData").child("mails").child(rootEmail).push(staffData)
-                    
+                    print("427")
                 except :
                     print("error in staffData")
 
@@ -364,9 +434,9 @@ class StaffWork(View):
                     database.child('Documents').child("Bill").child(
                         token).push(data)
                     msg1["savedToDB"]="Yes saved to Bill"
-
-                    print("Bill  ok ")
                     flag = True
+                    print("Bill  ok ")
+                    
                 elif checkDept == "report" and docType=="Report":
                     print("Report")
                     fToken = database.child("Documents").child(
@@ -401,7 +471,7 @@ class StaffWork(View):
                     msg1["savedToDB"]="Failed | Acses from wrong account  | Token not exists ."
                     print("Fail to push /  token not exists")
 
-                print("***Status Updated   ->  "+token)
+                print("***Status Updated   ->  ")
 
                 if message  and flag:
                     message = 'From WCE Doc Tracker . \n Token No. ' + \
@@ -420,6 +490,8 @@ class StaffWork(View):
                 msg1["status"]="Accepted previous doc"
                 return render(request, template_name,msg1)
             else:
+                print(checkDept)
+                print(docType)
                 message=str(staffEmail)+" -> "+message+" -> [ REJECTED ]"
                 data = {
                     "By": message,
@@ -445,11 +517,11 @@ class StaffWork(View):
                     msg1["savedToDB"]="Failed | Acses from wrong account  | Token not exists ."
                     print("Fail to push /  token not exists")
 
-                print("***Status Updated   ->  "+token)
+                print("***Status Updated   ->  ")
                 
                 msg1["status"]="Rejected previous doc"
                 message = 'From WCE Doc Tracker . \n Token No. ' + \
-                    str(token) + '\n'+message+' from ' + staffEmail+ '\n' + " STATUS : Rejected "
+                    str(tempToken) + '\n'+message+' from ' + staffEmail+ '\n' + " STATUS : Rejected "
                 print(message)
 
 
@@ -621,7 +693,7 @@ class create(View):
                 "docType": billCode,
                 "timeStamp": millis,
             }
-            print("line 150")
+            print("line 624")
             database.child('users').child(a).child(
                 'reports').child(millis).set(data)
           
@@ -629,31 +701,42 @@ class create(View):
                 "By": clerkEmail,
                 "at": millis,
             }
+            temp_email1=billCode+"#"+email
+            temp_email = email.split('@')[0]
+            temp_token = billCode+"#"+temp_email
+            demo = {
+                        "Utoken":temp_token,
+                        "Mtoken":millis
+            }
             # database.child('Documents').child("Bill").child(millis).push(data1)
             print("line 164")
             # print(billCode )
             if billCode == "Bill":
                 database.child('Documents').child("Bill").child(
                     millis).push(data1)
+                database.child('ids').child("Bill").push(demo)
                 print("Bill")
             elif billCode == "Report":
                 database.child('Documents').child(
                     "Report").child(millis).push(data1)
+                database.child('ids').child("Report").push(demo)
                 print("Report")
             elif billCode == "Proposal":
                 database.child('Documents').child(
                     "Proposals").child(millis).push(data1)
+                database.child('ids').child("Proposal").push(demo)
                 print("Proposal")
             elif billCode == "Request":
                 database.child('Documents').child(
                     "Requests").child(millis).push(data1)
+                database.child('ids').child("Request").push(demo)
                 print("Request")
 
             database.child('Documents').child(
                 "Owner").child(millis).push(data)
             print("***Saved*****")
 
-            message = 'Welcome to doc tracker . \n Token No. '+str(millis)
+            message = 'Welcome to doc tracker . \n Document token is  '+str(temp_token)+' \n '+str(millis)+"\n Name : "+str(first_name)+"\n Last name : "+str(last_name)+"\n email : "+str(email)+"\n phone : "+str(phoneNumber)
             print(message)
             send_mail(
                 'WCE Doc Tracker ',

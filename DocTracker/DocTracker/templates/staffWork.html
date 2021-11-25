@@ -12,6 +12,21 @@
         {% csrf_token %}
     <div class="d-flex" style="align-items:center;">
         
+
+        {% if notExists %}
+                <div class="div">
+                    <div class="wrap-input50  m-b-6" style="margin-top:2rem;">
+                        <h1 class="input100"
+                            style="font-family:'Oswald' ; font-size:60px; text-align:left; font-weight:bold; border:2px solid;padding-bottom:4rem">
+                            <strong>{{notExists}}</strong>
+                        </h1>
+                        <span class="focus-input100"></span>
+                    </div>
+                </div>
+        {% endif %}
+
+
+
         <div class="row">
 
 
